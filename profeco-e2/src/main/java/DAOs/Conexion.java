@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author Usuario
  */
 public class Conexion {
-    private static final String URL = "jdbc:mysql://localhost:3306/profeco-e2";
+    private static final String URL = "jdbc:mysql://localhost:3306/profeco";
     private static final String USER = "root";
     private static final String PASSWORD = ""; // O la contraseña que hayas definido
 
