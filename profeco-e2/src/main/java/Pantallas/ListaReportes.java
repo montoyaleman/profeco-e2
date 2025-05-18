@@ -1,33 +1,59 @@
 package Pantallas;
 
 import Entidades.Producto;
+import Entidades.Reporte;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ComparacionPrecios extends javax.swing.JFrame {
-    
-    ArrayList<Producto> lista;
+public class ListaReportes extends javax.swing.JFrame {
+    ArrayList<Reporte> lista;
     DefaultTableModel modelo = new DefaultTableModel();
-    public ComparacionPrecios() {
+    
+    public ListaReportes() {
+        actualizarTabla();
         initComponents();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btnActualizar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
-        btnConsultar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtNombreProducto = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        txtIDReporte = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtIDProductoConsultar = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton3");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +83,7 @@ public class ComparacionPrecios extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Comparar precios");
+        jLabel1.setText("Reportes");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,7 +93,7 @@ public class ComparacionPrecios extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID Producto", "Nombre", "ID Empresa", "Precio", "Oferta"
+                "ID Reporte", "Fecha", "ID Empresa", "Descripcion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -80,6 +106,16 @@ public class ComparacionPrecios extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        btnActualizar.setBackground(new java.awt.Color(0, 2, 2));
+        btnActualizar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
         btnRegresar.setBackground(new java.awt.Color(0, 2, 2));
         btnRegresar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,26 +126,11 @@ public class ComparacionPrecios extends javax.swing.JFrame {
             }
         });
 
-        btnConsultar.setBackground(new java.awt.Color(0, 2, 2));
-        btnConsultar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
-        btnConsultar.setText("Consultar");
-        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("ID Reporte:");
 
-        jLabel2.setText("Buscar nombre de producto:");
+        jLabel3.setText("Estado:");
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("ID de Producto a consultar:");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin procesar", "No valido", "Sancionado", "Liberado" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,120 +138,102 @@ public class ComparacionPrecios extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRegresar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConsultar))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnRegresar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnActualizar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(250, 250, 250)
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombreProducto)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIDReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIDProductoConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtIDProductoConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegresar)
-                    .addComponent(btnConsultar))
+                    .addComponent(jLabel2)
+                    .addComponent(txtIDReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnRegresar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        
+        String txtId = txtIDReporte.getText();
+        String estado = jComboBox1.getSelectedItem().toString();
+        
+        // query para actualizar el estado del reporte seleccionado
+        
+        JOptionPane.showMessageDialog(null, "Reporte Actualizado con exito");
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
-        String idArticulo = txtIDProductoConsultar.getText().trim();
-        if (idArticulo.isBlank()) JOptionPane.showMessageDialog(null, "Por favor de llenar los campos", "Error", JOptionPane.WARNING_MESSAGE);
-        else {
-            //checar si hay un producto con el id obtenido
-            //si no, se le avisa al cliente que no existe tal producto
-            
-            // JOptionPane.showMessageDialog(null, "No existe un producto con ese ID", "Error", JOptionPane.WARNING_MESSAGE);
-            
-            // si existe el producto con ese id
-            // Producto pro = getProductoFromID o como se llame el metodo para
-            // obtenerlo de la bd
-            
-            // y se pasa a la pantalla de consultar producto como parametro
-            //new ConsultarProducto(pro).setVisible(true);
-        }
-    }//GEN-LAST:event_btnConsultarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        String nombreProducto = txtNombreProducto.getText();
-        if (nombreProducto.isBlank()){
-            // se busca todos los producto en la base de datos
-            
-            // lista = getTodosArticulos
-        } else {
-            // se hace un query para buscar productos con un termino es especial
-            
-            // lista = getListaDeProductosEspecificos o como se llamen los
-            // metodos que quieras utilizar
-        }
+    private void actualizarTabla(){
+        // lista = getListaDeProductosEspecificos o como se llamen los
         modelo.setRowCount(0);
         Object[] data = new Object[5];
         
-        for (Producto pro : lista) {
-            data[0] = pro.getIdEmpresa();
-            data[1] = pro.getNombre();
-            data[2] = pro.getIdEmpresa();
-            data[3] = pro.getPrecio();
-            data[4] = pro.isOferta();
+        for (Reporte rep : lista) {
+            data[0] = rep.getIdReporte();
+            data[1] = rep.getFechaCreacion();
+            data[2] = rep.getIdEmpresa();
+            data[3] = rep.getDescripcion();
+            data[4] = rep.getEstado();
             
             modelo.addRow(data);
         }
         jTable1.setModel(modelo);
-        
-        
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtIDProductoConsultar;
-    private javax.swing.JTextField txtNombreProducto;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField txtIDReporte;
     // End of variables declaration//GEN-END:variables
 }
