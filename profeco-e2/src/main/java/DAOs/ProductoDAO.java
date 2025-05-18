@@ -23,7 +23,7 @@ public class ProductoDAO {
                 p.setDescripcion(rs.getString("descripcion"));
                 p.setPrecio(rs.getDouble("precio"));
                 p.setOferta(rs.getBoolean("oferta"));
-                p.setEtiquetas(rs.getString("etiquetas"));
+                p.setEtiquetas(rs.getString("etiqueta"));
                 lista.add(p);
             }
 
@@ -51,7 +51,7 @@ public class ProductoDAO {
                     producto.setDescripcion(rs.getString("descripcion"));
                     producto.setPrecio(rs.getDouble("precio"));
                     producto.setOferta(rs.getBoolean("oferta"));
-                    producto.setEtiquetas(rs.getString("etiquetas"));
+                    producto.setEtiquetas(rs.getString("etiqueta"));
                 }
             }
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class ProductoDAO {
 
     // Método para crear un nuevo producto (Create)
     public void crearProducto(Producto producto) {
-        String sql = "INSERT INTO Producto (idEmpresa, nombre, descripcion, precio, oferta, etiquetas) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Producto (idEmpresa, nombre, descripcion, precio, oferta, etiqueta) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -82,7 +82,7 @@ public class ProductoDAO {
 
     // Método para actualizar un producto (Update)
     public void actualizarProducto(Producto producto) {
-        String sql = "UPDATE Producto SET idEmpresa = ?, nombre = ?, descripcion = ?, precio = ?, oferta = ?, etiquetas = ? WHERE idProducto = ?";
+        String sql = "UPDATE Producto SET idEmpresa = ?, nombre = ?, descripcion = ?, precio = ?, oferta = ?, etiqueta = ? WHERE idProducto = ?";
 
         try (Connection conn = Conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
