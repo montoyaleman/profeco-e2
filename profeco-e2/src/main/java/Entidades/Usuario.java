@@ -17,6 +17,7 @@ public class Usuario {
     private String password;
     private String email;
     private boolean isAdmin;
+    private int idEmpresa;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -73,5 +74,14 @@ public class Usuario {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+    
     
 }
