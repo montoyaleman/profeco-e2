@@ -9,7 +9,7 @@ public class UsuarioDAO {
     // Método para obtener todos los usuarios (Read)
     public List<Usuario> obtenerUsuarios() {
         List<Usuario> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Usuario";
+        String sql = "SELECT * FROM usuario";
 
         try (Connection conn = Conexion.getConnection();
              Statement stmt = conn.createStatement();
@@ -18,7 +18,7 @@ public class UsuarioDAO {
             while (rs.next()) {
                 Usuario u = new Usuario();
                 u.setIdUsuario(rs.getInt("idUsuario"));
-                u.setNombres(rs.getString("nombres"));
+                u.setNombres(rs.getString("nombre"));
                 u.setApellidoPaterno(rs.getString("apellidoPaterno"));
                 u.setApellidoMaterno(rs.getString("apellidoMaterno"));
                 u.setEmail(rs.getString("email"));
@@ -46,7 +46,7 @@ public class UsuarioDAO {
                 if (rs.next()) {
                     usuario = new Usuario();
                     usuario.setIdUsuario(rs.getInt("idUsuario"));
-                    usuario.setNombres(rs.getString("nombres"));
+                    usuario.setNombres(rs.getString("nombre"));
                     usuario.setApellidoPaterno(rs.getString("apellidoPaterno"));
                     usuario.setApellidoMaterno(rs.getString("apellidoMaterno"));
                     usuario.setEmail(rs.getString("email"));
@@ -62,7 +62,7 @@ public class UsuarioDAO {
 
     // Método para crear un nuevo usuario (Create)
     public void crearUsuario(Usuario usuario) {
-        String sql = "INSERT INTO Usuario (nombres, apellidoPaterno, apellidoMaterno, email, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (nombre, apellidoPaterno, apellidoMaterno, email, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -82,7 +82,7 @@ public class UsuarioDAO {
 
     // Método para actualizar un usuario (Update)
     public void actualizarUsuario(Usuario usuario) {
-        String sql = "UPDATE Usuario SET nombres = ?, apellidoPaterno = ?, apellidoMaterno = ?, email = ?, password = ?, isAdmin = ? WHERE idUsuario = ?";
+        String sql = "UPDATE Usuario SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, email = ?, password = ?, isAdmin = ? WHERE idUsuario = ?";
 
         try (Connection conn = Conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
