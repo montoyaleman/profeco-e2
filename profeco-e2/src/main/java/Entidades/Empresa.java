@@ -12,8 +12,6 @@ public class Empresa {
 
     private int idEmpresa;
     private String nombre;
-    private String email;
-    private String password;
     private String tipoNegocio;
 
     public int getIdEmpresa() {
@@ -30,22 +28,6 @@ public class Empresa {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getTipoNegocio() {
