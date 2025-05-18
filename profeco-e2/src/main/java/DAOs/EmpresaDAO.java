@@ -19,8 +19,6 @@ public class EmpresaDAO {
                 Empresa e = new Empresa();
                 e.setIdEmpresa(rs.getInt("idEmpresa"));
                 e.setNombre(rs.getString("nombre"));
-                e.setEmail(rs.getString("email"));
-                e.setPassword(rs.getString("password"));
                 e.setTipoNegocio(rs.getString("tipoNegocio"));
                 lista.add(e);
             }
@@ -45,8 +43,6 @@ public class EmpresaDAO {
                     empresa = new Empresa();
                     empresa.setIdEmpresa(rs.getInt("idEmpresa"));
                     empresa.setNombre(rs.getString("nombre"));
-                    empresa.setEmail(rs.getString("email"));
-                    empresa.setPassword(rs.getString("password"));
                     empresa.setTipoNegocio(rs.getString("tipoNegocio"));
                 }
             }
@@ -58,15 +54,13 @@ public class EmpresaDAO {
 
     // Método para crear una nueva empresa (Create)
     public void crearEmpresa(Empresa empresa) {
-        String sql = "INSERT INTO Empresa (nombre, email, password, tipoNegocio) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Empresa (nombre, tipoNegocio) VALUES (?, ?)";
 
         try (Connection conn = Conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, empresa.getNombre());
-            pstmt.setString(2, empresa.getEmail());
-            pstmt.setString(3, empresa.getPassword());
-            pstmt.setString(4, empresa.getTipoNegocio());
+            pstmt.setString(2, empresa.getTipoNegocio());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -76,16 +70,14 @@ public class EmpresaDAO {
 
     // Método para actualizar una empresa (Update)
     public void actualizarEmpresa(Empresa empresa) {
-        String sql = "UPDATE Empresa SET nombre = ?, email = ?, password = ?, tipoNegocio = ? WHERE idEmpresa = ?";
+        String sql = "UPDATE Empresa SET nombre = ?, tipoNegocio = ? WHERE idEmpresa = ?";
 
         try (Connection conn = Conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, empresa.getNombre());
-            pstmt.setString(2, empresa.getEmail());
-            pstmt.setString(3, empresa.getPassword());
-            pstmt.setString(4, empresa.getTipoNegocio());
-            pstmt.setInt(5, empresa.getIdEmpresa());
+            pstmt.setString(2, empresa.getTipoNegocio());
+            pstmt.setInt(3, empresa.getIdEmpresa());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
