@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class ReporteDAOTest {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         ReporteDAO reporteDAO = new ReporteDAO();
 

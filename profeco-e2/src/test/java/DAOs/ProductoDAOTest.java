@@ -10,6 +10,10 @@ import java.util.List;
  */
 public class ProductoDAOTest {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         ProductoDAO productoDAO = new ProductoDAO();
         productoDAO.obtenerProductosPorNombre("Producto Ejemplo")

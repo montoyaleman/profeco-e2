@@ -9,6 +9,10 @@ import java.util.List;
  */
 public class EmpresaDAOTest {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         EmpresaDAO empresaDAO = new EmpresaDAO();
 

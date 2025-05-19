@@ -30,6 +30,11 @@ public class ComparacionPrecios extends javax.swing.JFrame {
      */
     List<Producto> lista = dao.obtenerProductos();
     DefaultTableModel modelo = new DefaultTableModel();
+
+    /**
+     *
+     * @param usu
+     */
     public ComparacionPrecios(Usuario usu) {
         this.usuario = usu;
         lista = dao.obtenerProductos();
