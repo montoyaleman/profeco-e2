@@ -3,7 +3,12 @@ package Pantallas;
 import Entidades.Empresa;
 import Entidades.Usuario;
 import javax.swing.JOptionPane;
+import DAOs.EmpresaDAO;
+import DAOs.UsuarioDAO;
+import java.util.List;
 public class RegistrarEmpresa extends javax.swing.JFrame {
+    EmpresaDAO daoEmpresa = new EmpresaDAO();
+    UsuarioDAO daoUsuario = new UsuarioDAO();
     Usuario usuario;
     public RegistrarEmpresa(Usuario usu) {
         this.usuario = usu;
@@ -23,8 +28,6 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         btnCancelar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        txtId = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,10 +84,6 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("ID de Empresa:");
-
-        txtId.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,9 +93,8 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,9 +106,7 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -126,13 +122,7 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5))
@@ -140,7 +130,9 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -148,32 +140,42 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
         String nombre = txtNombre.getText();
-        int id = (int) txtId.getValue();
         if (nombre.isBlank()) JOptionPane.showMessageDialog(null, "Por favor de llenar los campos", "Error", JOptionPane.WARNING_MESSAGE);
         else {
             Empresa emp = new Empresa();
-            emp.setIdEmpresa(id);
             emp.setNombre(nombre);
-            emp.setTipoNegocio(jComboBox1.getSelectedItem().toString());
+            emp.setTipoNegocio(jComboBox1.getSelectedItem().toString());            
             
-            //checar que el id insertado no es igual a uno ya existente
-            //JOptionPane.showMessageDialog(null, "El ID insertado no es unico.", "Error", JOptionPane.WARNING_MESSAGE);
+            try {
+                
+                if (emp != null){
+                    daoEmpresa.crearEmpresa(emp);                    
+                    JOptionPane.showMessageDialog(null, "Empresa creada con exito");
+                    
+                    
+                    List<Empresa> lista = daoEmpresa.obtenerEmpresas();
+                    for (Empresa empresa : lista) {
+                        if (empresa.getNombre().equalsIgnoreCase(nombre)){
+                            usuario.setIdEmpresa(empresa.getIdEmpresa());
+                            break;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, usuario.getIdEmpresa());
+                    daoUsuario.actualizarUsuario(usuario);  
+                    new Principal(usuario).setVisible(true);
+                    dispose();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();  
+            }
             
-            // si es unico, entonces se guarda la empresa en la bd
-            // query para guardar la empresa
-            
-            // y se guarda el id de la empresa en el usuario
-            // usuario.setIdEmpresa(id);
-            
-            // y se regresa a la pagina principal
-            JOptionPane.showMessageDialog(null, "Empresa creado con exito");
-            new Principal(usuario).setVisible(true);
-            dispose();
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -190,11 +192,9 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner txtId;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,6 +24,7 @@ public class UsuarioDAO {
                 u.setEmail(rs.getString("email"));
                 u.setPassword(rs.getString("password"));
                 u.setIsAdmin(rs.getBoolean("isAdmin"));
+                u.setIdEmpresa(rs.getInt("idEmpresa"));
                 lista.add(u);
             }
 
@@ -52,6 +53,7 @@ public class UsuarioDAO {
                     usuario.setEmail(rs.getString("email"));
                     usuario.setPassword(rs.getString("password"));
                     usuario.setIsAdmin(rs.getBoolean("isAdmin"));
+                    usuario.setIdEmpresa(rs.getInt("idEmpresa"));
                 }
             }
         } catch (SQLException e) {
@@ -82,7 +84,7 @@ public class UsuarioDAO {
 
     // Método para actualizar un usuario (Update)
     public void actualizarUsuario(Usuario usuario) {
-        String sql = "UPDATE Usuario SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, email = ?, password = ?, isAdmin = ? WHERE idUsuario = ?";
+        String sql = "UPDATE Usuario SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, email = ?, password = ?, isAdmin = ?, idEmpresa = ? WHERE idUsuario = ?";
 
         try (Connection conn = Conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -93,7 +95,8 @@ public class UsuarioDAO {
             pstmt.setString(4, usuario.getEmail());
             pstmt.setString(5, usuario.getPassword());
             pstmt.setBoolean(6, usuario.isIsAdmin());
-            pstmt.setInt(7, usuario.getIdUsuario());
+            pstmt.setInt(7, usuario.getIdEmpresa());
+            pstmt.setInt(8, usuario.getIdUsuario());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

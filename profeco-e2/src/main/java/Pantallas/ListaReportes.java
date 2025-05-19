@@ -1,18 +1,21 @@
 package Pantallas;
 
+import DAOs.ReporteDAO;
 import Entidades.Producto;
 import Entidades.Reporte;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ListaReportes extends javax.swing.JFrame {
-    ArrayList<Reporte> lista;
+    ReporteDAO dao = new ReporteDAO();
+    List<Reporte> lista;
     DefaultTableModel modelo = new DefaultTableModel();
     
-    public ListaReportes() {
-        actualizarTabla();
+    public ListaReportes() {        
         initComponents();
+        actualizarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -184,17 +187,23 @@ public class ListaReportes extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        
-        String txtId = txtIDReporte.getText();
+        String id = txtIDReporte.getText();
         String estado = jComboBox1.getSelectedItem().toString();
+        try {
+            Reporte rep = dao.obtenerReportePorId(Integer.parseInt(id));
+            rep.setEstado(estado);
+            dao.actualizarReporte(rep);
         
-        // query para actualizar el estado del reporte seleccionado
-        
-        JOptionPane.showMessageDialog(null, "Reporte Actualizado con exito");
+            JOptionPane.showMessageDialog(null, "Reporte Actualizado con exito");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();  
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -202,20 +211,26 @@ public class ListaReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void actualizarTabla(){
-        // lista = getListaDeProductosEspecificos o como se llamen los
-        modelo.setRowCount(0);
-        Object[] data = new Object[5];
-        
-        for (Reporte rep : lista) {
-            data[0] = rep.getIdReporte();
-            data[1] = rep.getFechaCreacion();
-            data[2] = rep.getIdEmpresa();
-            data[3] = rep.getDescripcion();
-            data[4] = rep.getEstado();
-            
-            modelo.addRow(data);
+        try {
+            lista = dao.obtenerReportes();
+            modelo.setRowCount(0);
+            Object[] data = new Object[5];
+
+            for (Reporte rep : lista) {
+                data[0] = rep.getIdReporte();
+                data[1] = rep.getFechaCreacion();
+                data[2] = rep.getIdEmpresa();
+                data[3] = rep.getDescripcion();
+                data[4] = rep.getEstado();
+
+                modelo.addRow(data);
+            }
+            jTable1.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();  
         }
-        jTable1.setModel(modelo);
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

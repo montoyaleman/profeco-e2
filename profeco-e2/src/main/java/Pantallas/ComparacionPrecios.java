@@ -1,15 +1,20 @@
 package Pantallas;
 
+import DAOs.ProductoDAO;
 import Entidades.Producto;
-import java.util.ArrayList;
+import Entidades.Usuario;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ComparacionPrecios extends javax.swing.JFrame {
     
-    ArrayList<Producto> lista;
+    List<Producto> lista;
+    Usuario usuario;
+    ProductoDAO dao = new ProductoDAO();
     DefaultTableModel modelo = new DefaultTableModel();
-    public ComparacionPrecios() {
+    public ComparacionPrecios(Usuario usu) {
+        this.usuario = usu;
         initComponents();
     }
     @SuppressWarnings("unchecked")
@@ -164,6 +169,7 @@ public class ComparacionPrecios extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -175,48 +181,46 @@ public class ComparacionPrecios extends javax.swing.JFrame {
         String idArticulo = txtIDProductoConsultar.getText().trim();
         if (idArticulo.isBlank()) JOptionPane.showMessageDialog(null, "Por favor de llenar los campos", "Error", JOptionPane.WARNING_MESSAGE);
         else {
-            //checar si hay un producto con el id obtenido
-            //si no, se le avisa al cliente que no existe tal producto
-            
-            // JOptionPane.showMessageDialog(null, "No existe un producto con ese ID", "Error", JOptionPane.WARNING_MESSAGE);
-            
-            // si existe el producto con ese id
-            // Producto pro = getProductoFromID o como se llame el metodo para
-            // obtenerlo de la bd
-            
-            // y se pasa a la pantalla de consultar producto como parametro
-            //new ConsultarProducto(pro).setVisible(true);
+            try {
+                Producto pro = dao.obtenerProductoPorId(Integer.parseInt(idArticulo));
+                if (pro == null) JOptionPane.showMessageDialog(null, "No existe un producto con ese ID", "Error", JOptionPane.WARNING_MESSAGE);
+                else{
+                    new ConsultarProducto(pro,usuario.getIdUsuario()).setVisible(true);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();  
+            }
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String nombreProducto = txtNombreProducto.getText();
-        if (nombreProducto.isBlank()){
-            // se busca todos los producto en la base de datos
-            
-            // lista = getTodosArticulos
-        } else {
-            // se hace un query para buscar productos con un termino es especial
-            
-            // lista = getListaDeProductosEspecificos o como se llamen los
-            // metodos que quieras utilizar
+        try {
+            lista = dao.obtenerProductos();
+            if (!nombreProducto.isBlank()){
+                for (Producto producto : lista) {
+                    if (!producto.getNombre().contains(nombreProducto)) lista.remove(producto);
+                }
+            }
+            modelo.setRowCount(0);
+            Object[] data = new Object[5];
+
+            for (Producto pro : lista) {
+                data[0] = pro.getIdEmpresa();
+                data[1] = pro.getNombre();
+                data[2] = pro.getIdEmpresa();
+                data[3] = pro.getPrecio();
+                data[4] = pro.isOferta();
+
+                modelo.addRow(data);
+            }
+            jTable1.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();  
         }
-        modelo.setRowCount(0);
-        Object[] data = new Object[5];
-        
-        for (Producto pro : lista) {
-            data[0] = pro.getIdEmpresa();
-            data[1] = pro.getNombre();
-            data[2] = pro.getIdEmpresa();
-            data[3] = pro.getPrecio();
-            data[4] = pro.isOferta();
-            
-            modelo.addRow(data);
-        }
-        jTable1.setModel(modelo);
-        
-        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

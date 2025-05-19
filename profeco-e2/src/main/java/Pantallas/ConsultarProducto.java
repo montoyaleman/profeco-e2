@@ -1,20 +1,25 @@
 
 package Pantallas;
 
+import DAOs.ReporteDAO;
 import Entidades.Producto;
+import Entidades.Reporte;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class ConsultarProducto extends javax.swing.JFrame {
+    ReporteDAO dao = new ReporteDAO();
     Producto pro;
-    public ConsultarProducto(Producto pro) {
+    int idUsuario = 0;
+    public ConsultarProducto(Producto pro, int IdUsuario) {
         this.pro = pro;
-        
+        this.idUsuario = IdUsuario;
+        initComponents();
         jLabelNombreProducto.setText(pro.getNombre());
         jLabelNombreTienda.setText(Integer.toString(pro.getIdEmpresa()));
         jLabelDescripcion.setText(pro.getDescripcion());
         txtPrecio.setText(Double.toString(pro.getPrecio()));
-        txtOferta.setText(String.valueOf(pro.isOferta()));
-        
-        initComponents();
+        txtOferta.setText(String.valueOf(pro.isOferta()));    
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -161,10 +166,27 @@ public class ConsultarProducto extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
+        String inconsistencia = JOptionPane.showInputDialog("Describa la inconsistencia a detalle: ");
+        Reporte rep = new Reporte();
+        rep.setDescripcion(inconsistencia);
+        rep.setIdEmpresa(pro.getIdEmpresa());
+        rep.setFechaCreacion(new Date());
+        rep.setEstado("Sin procesar");
+        rep.setIdUsuario(idUsuario);
+        try {
+            dao.crearReporte(rep);
+            JOptionPane.showMessageDialog(null, "Reporte con exito");
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();  
+        }
+        
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed

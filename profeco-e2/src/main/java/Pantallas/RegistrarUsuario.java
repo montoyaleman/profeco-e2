@@ -2,8 +2,10 @@ package Pantallas;
 
 import Entidades.Usuario;
 import javax.swing.JOptionPane;
+import DAOs.UsuarioDAO;
 
 public class RegistrarUsuario extends javax.swing.JFrame {
+    UsuarioDAO dao = new UsuarioDAO();
     public RegistrarUsuario() {
         initComponents();
     }
@@ -152,6 +154,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
@@ -178,12 +181,17 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             usuario.setApellidoMaterno(materno);
             usuario.setApellidoPaterno(paterno);
             usuario.setPassword(pw);
-            usuario.setEmail(email);
-            //usuario.setIDEmpresa(0);
+            usuario.setEmail(email);        
             
-            // query para agregar el usuario a la bd
-            JOptionPane.showMessageDialog(null, "Usuario creado con exito");
-            dispose();
+            try {
+                dao.crearUsuario(usuario);
+                JOptionPane.showMessageDialog(null, "Usuario creado con exito");
+                dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();  
+            }
+            
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

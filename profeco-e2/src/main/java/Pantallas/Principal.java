@@ -1,15 +1,18 @@
 package Pantallas;
 
 import Entidades.Usuario;
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
     Usuario usuario;
     public Principal(Usuario usu) {
+        this.usuario = usu;
         //si el usuario no esta marcado como admin, entonces no se 
         //puede ver el boton de ver reportes
-        if (!usu.isIsAdmin()) btnVerReportes.setVisible(false);       
+               
         
         initComponents();
+        if (!usu.isIsAdmin()) btnVerReportes.setVisible(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -95,29 +98,19 @@ public class Principal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCompararPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompararPreciosActionPerformed
         // TODO add your handling code here:
-        new ComparacionPrecios().setVisible(true);
+        new ComparacionPrecios(usuario).setVisible(true);
     }//GEN-LAST:event_btnCompararPreciosActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         // TODO add your handling code here:
-        //si el usuario no tiene una empresa vinculado a el
-        //se le da la opcion de crear una 
-        
-        
-        //ejemplo para cuando hagan el cambio en el codigo
-        
-        //if (usuario.getIdEmpresa == 0) new RegistrarEmpresa(usuario).setVisible(true);
-        
-        
-        //si tiene una empresa vinculada, le aparece el boton de 
-        //agregar producto.
-        
-        //else new RegistrarProducto(usuario).serVisible(true);
-        
+        if (usuario.getIdEmpresa() == 0) new RegistrarEmpresa(usuario).setVisible(true);       
+        else new RegistrarProducto(usuario).setVisible(true);        
+        dispose();        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void btnVerReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReportesActionPerformed

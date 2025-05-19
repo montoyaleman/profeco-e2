@@ -1,9 +1,12 @@
 package Pantallas;
 
 import Entidades.Usuario;
+import java.util.List;
 import javax.swing.JOptionPane;
+import DAOs.UsuarioDAO;
 
 public class Login extends javax.swing.JFrame {
+    UsuarioDAO dao = new UsuarioDAO();
     public Login() {
         initComponents();
     }
@@ -18,9 +21,9 @@ public class Login extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
-        jLabelCrearCuenta = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
+        btnCrearCuenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(205, 205, 205));
@@ -51,10 +54,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabelCrearCuenta.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabelCrearCuenta.setForeground(new java.awt.Color(0, 102, 255));
-        jLabelCrearCuenta.setText("Crear Cuenta");
-
         jPanel1.setBackground(new java.awt.Color(0, 2, 2));
 
         jLabelTitulo.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -79,10 +78,18 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        btnCrearCuenta.setText("Crear cuenta");
+        btnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearCuentaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,9 +104,8 @@ public class Login extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelCrearCuenta)))
+                        .addComponent(btnCrearCuenta)))
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +122,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelCrearCuenta)
+                .addComponent(btnCrearCuenta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -137,16 +143,32 @@ public class Login extends javax.swing.JFrame {
         if (pw.isBlank() || email.isBlank()){
             JOptionPane.showMessageDialog(null, "Por favor de llenar los campos", "Error", JOptionPane.WARNING_MESSAGE);
         } else {
-            //checar si existe un usuarioque tenga ese email y contrasena
+            try {
+                Usuario usu = null;
+                List<Usuario> lista = dao.obtenerUsuarios();
+                for (Usuario usuario : lista) {
+                    if (usuario.getEmail().equalsIgnoreCase(email) && usuario.getPassword().equalsIgnoreCase(pw)){
+                        usu = usuario;
+                        break;
+                    }
+                }
+                if (usu != null){
+                    JOptionPane.showMessageDialog(null, "Bienvenido "+usu.getNombres());
+                    new Principal(usu).setVisible(true);
+                    dispose();
+                } else JOptionPane.showMessageDialog(null, "No se encontro tal usuario.", "Error", JOptionPane.WARNING_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();                
+            }
             
-            //si existe, entonces se guarda el ususuario con esos datos
-            Usuario usu = new Usuario();
-            
-            //y se pasa a la pagina principal y se pasa como parametro el usuario encontrado
-            new Principal(usu).setVisible(true);
-            dispose();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
+        // TODO add your handling code here:
+        new RegistrarUsuario().setVisible(true);
+    }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,11 +208,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrearCuenta;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabelCrearCuenta;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCorreo;
