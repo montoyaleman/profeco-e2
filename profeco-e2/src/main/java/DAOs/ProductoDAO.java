@@ -63,12 +63,12 @@ public class ProductoDAO {
     // Método para obtener un producto por el nombre del producto (Read)
     public List<Producto> obtenerProductosPorNombre(String nombre) {
         List<Producto> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Producto WHERE nombre LIKE ?";
+        String sql = "SELECT * FROM producto WHERE nombre LIKE \""+nombre+"\"";
 
         try (Connection conn = Conexion.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, "%"+nombre+"%");
+            //pstmt.setString(1, "%"+nombre+"%");
             ResultSet rs = pstmt.executeQuery(sql);
             
             if (rs.next()) {
