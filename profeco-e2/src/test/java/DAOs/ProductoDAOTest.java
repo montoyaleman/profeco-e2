@@ -12,8 +12,8 @@ public class ProductoDAOTest {
 
     public static void main(String[] args) {
         ProductoDAO productoDAO = new ProductoDAO();
-        productoDAO.obtenerProductosPorNombre("Producto B1")
-                .forEach(nombre  -> System.out.println(nombre.getNombre()));
+        productoDAO.obtenerProductosPorNombre("Producto Ejemplo")
+                .forEach(producto  -> System.out.println(producto.getNombre()));
         
         /*
         // Prueba para obtenerProductos

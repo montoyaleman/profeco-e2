@@ -4,9 +4,18 @@ import Entidades.Producto;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Clase de acceso a datos para la entidad Producto.
+ * Proporciona métodos para realizar operaciones CRUD (Create, Read, Update, Delete)
+ * sobre la tabla Producto en la base de datos.
+ */
 public class ProductoDAO {
 
-    // Método para obtener todos los productos (Read)
+    /**
+     * Obtiene una lista de todos los productos almacenados en la base de datos.
+     *
+     * @return Lista de objetos Producto.
+     */
     public List<Producto> obtenerProductos() {
         List<Producto> lista = new ArrayList<>();
         String sql = "SELECT * FROM Producto";
@@ -33,7 +42,12 @@ public class ProductoDAO {
         return lista;
     }
 
-    // Método para obtener un producto por ID (Read)
+    /**
+     * Obtiene un producto específico de la base de datos por su ID.
+     *
+     * @param id El ID del producto a buscar.
+     * @return Objeto Producto si se encuentra, de lo contrario null.
+     */
     public Producto obtenerProductoPorId(int id) {
         Producto producto = null;
         String sql = "SELECT * FROM Producto WHERE idProducto = ?";
@@ -59,8 +73,13 @@ public class ProductoDAO {
         }
         return producto;
     }
-    
-    // Método para obtener un producto por el nombre del producto (Read)
+
+    /**
+     * Obtiene una lista de productos que coinciden con el nombre proporcionado.
+     *
+     * @param nombre El nombre del producto a buscar.
+     * @return Lista de objetos Producto que coinciden con el nombre.
+     */
     public List<Producto> obtenerProductosPorNombre(String nombre) {
         List<Producto> lista = new ArrayList<>();
         String sql = "SELECT * FROM producto WHERE nombre LIKE \""+nombre+"\"";
@@ -70,7 +89,7 @@ public class ProductoDAO {
 
             //pstmt.setString(1, "%"+nombre+"%");
             ResultSet rs = pstmt.executeQuery(sql);
-            
+
             if (rs.next()) {
                 Producto producto = new Producto();
                 producto.setIdProducto(rs.getInt("idProducto"));
@@ -82,14 +101,18 @@ public class ProductoDAO {
                 producto.setEtiquetas(rs.getString("etiqueta"));
                 lista.add(producto);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
     }
 
-    // Método para crear un nuevo producto (Create)
+    /**
+     * Crea un nuevo producto en la base de datos.
+     *
+     * @param producto El objeto Producto a crear.
+     */
     public void crearProducto(Producto producto) {
         String sql = "INSERT INTO Producto (idEmpresa, nombre, descripcion, precio, oferta, etiqueta) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -109,7 +132,11 @@ public class ProductoDAO {
         }
     }
 
-    // Método para actualizar un producto (Update)
+    /**
+     * Actualiza un producto existente en la base de datos.
+     *
+     * @param producto El objeto Producto con los datos actualizados.
+     */
     public void actualizarProducto(Producto producto) {
         String sql = "UPDATE Producto SET idEmpresa = ?, nombre = ?, descripcion = ?, precio = ?, oferta = ?, etiqueta = ? WHERE idProducto = ?";
 
@@ -130,7 +157,11 @@ public class ProductoDAO {
         }
     }
 
-    // Método para eliminar un producto (Delete)
+    /**
+     * Elimina un producto de la base de datos por su ID.
+     *
+     * @param id El ID del producto a eliminar.
+     */
     public void eliminarProducto(int id) {
         String sql = "DELETE FROM Producto WHERE idProducto = ?";
 

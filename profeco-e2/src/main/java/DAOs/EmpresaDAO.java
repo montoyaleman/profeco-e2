@@ -4,10 +4,18 @@ import Entidades.Empresa;
 import java.sql.*;
 import java.util.*;
 
-
+/**
+ * Clase de acceso a datos para la entidad Empresa.
+ * Proporciona métodos para realizar operaciones CRUD (Create, Read, Update, Delete)
+ * sobre la tabla Empresa en la base de datos.
+ */
 public class EmpresaDAO {
 
-    // Método para obtener todas las empresas (Read)
+    /**
+     * Obtiene una lista de todas las empresas almacenadas en la base de datos.
+     *
+     * @return Lista de objetos Empresa.
+     */
     public List<Empresa> obtenerEmpresas() {
         List<Empresa> lista = new ArrayList<>();
         String sql = "SELECT * FROM Empresa";
@@ -30,7 +38,12 @@ public class EmpresaDAO {
         return lista;
     }
 
-    // Método para obtener una empresa por ID (Read)
+    /**
+     * Obtiene una empresa específica de la base de datos por su ID.
+     *
+     * @param id El ID de la empresa a buscar.
+     * @return Objeto Empresa si se encuentra, de lo contrario null.
+     */
     public Empresa obtenerEmpresaPorId(int id) {
         Empresa empresa = null;
         String sql = "SELECT * FROM Empresa WHERE idEmpresa = ?";
@@ -53,7 +66,11 @@ public class EmpresaDAO {
         return empresa;
     }
 
-    // Método para crear una nueva empresa (Create)
+    /**
+     * Crea una nueva empresa en la base de datos.
+     *
+     * @param empresa El objeto Empresa a crear.
+     */
     public void crearEmpresa(Empresa empresa) {
         String sql = "INSERT INTO Empresa (nombre, tipoNegocio) VALUES (?, ?)";
 
@@ -69,7 +86,11 @@ public class EmpresaDAO {
         }
     }
 
-    // Método para actualizar una empresa (Update)
+    /**
+     * Actualiza una empresa existente en la base de datos.
+     *
+     * @param empresa El objeto Empresa con los datos actualizados.
+     */
     public void actualizarEmpresa(Empresa empresa) {
         String sql = "UPDATE Empresa SET nombre = ?, tipoNegocio = ? WHERE idEmpresa = ?";
 
@@ -86,7 +107,11 @@ public class EmpresaDAO {
         }
     }
 
-    // Método para eliminar una empresa (Delete)
+    /**
+     * Elimina una empresa de la base de datos por su ID.
+     *
+     * @param id El ID de la empresa a eliminar.
+     */
     public void eliminarEmpresa(int id) {
         String sql = "DELETE FROM Empresa WHERE idEmpresa = ?";
 

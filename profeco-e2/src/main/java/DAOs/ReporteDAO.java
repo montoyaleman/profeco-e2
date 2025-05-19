@@ -4,9 +4,18 @@ import Entidades.Reporte;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Clase de acceso a datos para la entidad Reporte.
+ * Proporciona métodos para realizar operaciones CRUD (Create, Read, Update, Delete)
+ * sobre la tabla Reporte en la base de datos.
+ */
 public class ReporteDAO {
 
-    // Método para obtener todos los reportes (Read)
+    /**
+     * Obtiene una lista de todos los reportes almacenados en la base de datos.
+     *
+     * @return Lista de objetos Reporte.
+     */
     public List<Reporte> obtenerReportes() {
         List<Reporte> lista = new ArrayList<>();
         String sql = "SELECT * FROM Reporte";
@@ -32,7 +41,12 @@ public class ReporteDAO {
         return lista;
     }
 
-    // Método para obtener un reporte por ID (Read)
+    /**
+     * Obtiene un reporte específico de la base de datos por su ID.
+     *
+     * @param id El ID del reporte a buscar.
+     * @return Objeto Reporte si se encuentra, de lo contrario null.
+     */
     public Reporte obtenerReportePorId(int id) {
         Reporte reporte = null;
         String sql = "SELECT * FROM Reporte WHERE idReporte = ?";
@@ -58,7 +72,11 @@ public class ReporteDAO {
         return reporte;
     }
 
-    // Método para crear un nuevo reporte (Create)
+    /**
+     * Crea un nuevo reporte en la base de datos.
+     *
+     * @param reporte El objeto Reporte a crear.
+     */
     public void crearReporte(Reporte reporte) {
         String sql = "INSERT INTO Reporte (fechaCreacion, idEmpresa, idUsuario, descripcion, estado) VALUES (?, ?, ?, ?, ?)";
 
@@ -77,7 +95,11 @@ public class ReporteDAO {
         }
     }
 
-    // Método para actualizar un reporte (Update)
+    /**
+     * Actualiza un reporte existente en la base de datos.
+     *
+     * @param reporte El objeto Reporte con los datos actualizados.
+     */
     public void actualizarReporte(Reporte reporte) {
         String sql = "UPDATE Reporte SET fechaCreacion = ?, idEmpresa = ?, idUsuario = ?, descripcion = ?, estado = ? WHERE idReporte = ?";
 
@@ -97,7 +119,11 @@ public class ReporteDAO {
         }
     }
 
-    // Método para eliminar un reporte (Delete)
+    /**
+     * Elimina un reporte de la base de datos por su ID.
+     *
+     * @param id El ID del reporte a eliminar.
+     */
     public void eliminarReporte(int id) {
         String sql = "DELETE FROM Reporte WHERE idReporte = ?";
 

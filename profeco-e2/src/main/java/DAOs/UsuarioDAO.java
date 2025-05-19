@@ -4,9 +4,18 @@ import Entidades.Usuario;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Clase de acceso a datos para la entidad Usuario.
+ * Proporciona métodos para realizar operaciones CRUD (Create, Read, Update, Delete)
+ * sobre la tabla Usuario en la base de datos.
+ */
 public class UsuarioDAO {
 
-    // Método para obtener todos los usuarios (Read)
+    /**
+     * Obtiene una lista de todos los usuarios almacenados en la base de datos.
+     *
+     * @return Lista de objetos Usuario.
+     */
     public List<Usuario> obtenerUsuarios() {
         List<Usuario> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuario";
@@ -34,7 +43,12 @@ public class UsuarioDAO {
         return lista;
     }
 
-    // Método para obtener un usuario por ID (Read)
+    /**
+     * Obtiene un usuario específico de la base de datos por su ID.
+     *
+     * @param id El ID del usuario a buscar.
+     * @return Objeto Usuario si se encuentra, de lo contrario null.
+     */
     public Usuario obtenerUsuarioPorId(int id) {
         Usuario usuario = null;
         String sql = "SELECT * FROM Usuario WHERE idUsuario = ?";
@@ -62,7 +76,11 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    // Método para crear un nuevo usuario (Create)
+    /**
+     * Crea un nuevo usuario en la base de datos.
+     *
+     * @param usuario El objeto Usuario a crear.
+     */
     public void crearUsuario(Usuario usuario) {
         String sql = "INSERT INTO usuario (nombre, apellidoPaterno, apellidoMaterno, email, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -82,7 +100,11 @@ public class UsuarioDAO {
         }
     }
 
-    // Método para actualizar un usuario (Update)
+    /**
+     * Actualiza un usuario existente en la base de datos.
+     *
+     * @param usuario El objeto Usuario con los datos actualizados.
+     */
     public void actualizarUsuario(Usuario usuario) {
         String sql = "UPDATE Usuario SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, email = ?, password = ?, isAdmin = ?, idEmpresa = ? WHERE idUsuario = ?";
 
@@ -104,7 +126,11 @@ public class UsuarioDAO {
         }
     }
 
-    // Método para eliminar un usuario (Delete)
+    /**
+     * Elimina un usuario de la base de datos por su ID.
+     *
+     * @param id El ID del usuario a eliminar.
+     */
     public void eliminarUsuario(int id) {
         String sql = "DELETE FROM Usuario WHERE idUsuario = ?";
 
