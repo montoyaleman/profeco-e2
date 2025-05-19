@@ -1,6 +1,7 @@
 
 package Pantallas;
 
+import DAOs.EmpresaDAO;
 import DAOs.ReporteDAO;
 import Entidades.Producto;
 import Entidades.Reporte;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class ConsultarProducto extends javax.swing.JFrame {
     ReporteDAO dao = new ReporteDAO();
+    EmpresaDAO daoEmpresa = new EmpresaDAO();
     Producto pro;
     int idUsuario = 0;
     /**
@@ -23,9 +25,12 @@ public class ConsultarProducto extends javax.swing.JFrame {
     public ConsultarProducto(Producto pro, int IdUsuario) {
         this.pro = pro;
         this.idUsuario = IdUsuario;
+        
+        String nombreEmpresa = daoEmpresa.obtenerEmpresaPorId(pro.getIdEmpresa()).getNombre();
         initComponents();
+        
         jLabelNombreProducto.setText(pro.getNombre());
-        jLabelNombreTienda.setText(Integer.toString(pro.getIdEmpresa()));
+        jLabelNombreTienda.setText(nombreEmpresa);
         jLabelDescripcion.setText(pro.getDescripcion());
         txtPrecio.setText(Double.toString(pro.getPrecio()));
         txtOferta.setText(String.valueOf(pro.isOferta()));    
