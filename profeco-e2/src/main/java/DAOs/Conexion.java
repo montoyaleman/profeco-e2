@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class Conexion {
     private static final String URL = "jdbc:mysql://localhost:3306/profeco";
     private static final String USER = "root";
-    private static final String PASSWORD = "1234"; // O la contraseña que hayas definido
+    private static final String PASSWORD = "itson"; // O la contraseña que hayas definido
 
     /**
      * Obtiene una conexión a la base de datos utilizando los parámetros de conexión definidos.
