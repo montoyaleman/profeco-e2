@@ -12,7 +12,10 @@ public class ProductoDAOTest {
 
     public static void main(String[] args) {
         ProductoDAO productoDAO = new ProductoDAO();
-
+        productoDAO.obtenerProductosPorNombre("Producto B1")
+                .forEach(nombre  -> System.out.println(nombre.getNombre()));
+        
+        /*
         // Prueba para obtenerProductos
         testObtenerProductos(productoDAO);
 
@@ -26,7 +29,7 @@ public class ProductoDAOTest {
         testActualizarProducto(productoDAO);
 
         // Prueba para eliminarProducto
-        testEliminarProducto(productoDAO);
+        testEliminarProducto(productoDAO);*/
     }
 
     private static void testObtenerProductos(ProductoDAO productoDAO) {
