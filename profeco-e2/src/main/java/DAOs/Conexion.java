@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
- * @author Usuario
+ * Clase utilizada para conectarse a la base de datos del programa
+ * @author montoya
  */
 public class Conexion {
     private static final String URL = "jdbc:mysql://localhost:3306/profeco";

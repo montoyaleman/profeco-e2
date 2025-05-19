@@ -6,10 +6,18 @@ import javax.swing.JOptionPane;
 import DAOs.EmpresaDAO;
 import DAOs.UsuarioDAO;
 import java.util.List;
+/**
+ * Pantalla utilizada para registrar una nueva empresa al sistema.
+ * @author montoya
+ */
 public class RegistrarEmpresa extends javax.swing.JFrame {
     EmpresaDAO daoEmpresa = new EmpresaDAO();
     UsuarioDAO daoUsuario = new UsuarioDAO();
     Usuario usuario;
+    /**
+     * Constructor.
+     * @param usu Datos de usuario para registrar la empresa a su nombre.
+     */
     public RegistrarEmpresa(Usuario usu) {
         this.usuario = usu;
         initComponents();
@@ -55,6 +63,7 @@ public class RegistrarEmpresa extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Crear Empresa");
 

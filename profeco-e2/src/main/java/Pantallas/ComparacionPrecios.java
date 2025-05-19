@@ -8,11 +8,26 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ComparacionPrecios extends javax.swing.JFrame {
-    
-    
+/**
+ * Pantalla utilizada para comparar los precios de los productos
+ * actualmente disponibles en la base de datos.
+ * @author montoya
+ */
+public class ComparacionPrecios extends javax.swing.JFrame {   
+    /**
+     * Variable utilizada para guardar los datos del cliente
+     * en el caos de utilizarlos.
+     */
     Usuario usuario;
+    /**
+     * Variable para comunicarse con la tabla de productos 
+     * en la base de datos.
+     */
     ProductoDAO dao = new ProductoDAO();
+    /**
+     * Variable para obtener los productos actuales en la base
+     * de datos..
+     */
     List<Producto> lista = dao.obtenerProductos();
     DefaultTableModel modelo = new DefaultTableModel();
     public ComparacionPrecios(Usuario usu) {
@@ -64,7 +79,7 @@ public class ComparacionPrecios extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Comparar precios");
 
@@ -96,7 +111,7 @@ public class ComparacionPrecios extends javax.swing.JFrame {
             }
         });
 
-        btnConsultar.setBackground(new java.awt.Color(0, 2, 2));
+        btnConsultar.setBackground(new java.awt.Color(0, 88, 71));
         btnConsultar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultar.setText("Consultar");
@@ -173,6 +188,7 @@ public class ComparacionPrecios extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         new Principal(usuario).setVisible(true);
@@ -213,7 +229,11 @@ public class ComparacionPrecios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    
+    /**
+     * Metodo utilizado para actualizar la tabla con los productos
+     * buscados por el usuario.
+     * @param listActualizada Lista de productos encontrados
+     */
     public void actualizarTablar(List<Producto> listActualizada){
         modelo.setRowCount(0);
         modelo.setColumnCount(0);

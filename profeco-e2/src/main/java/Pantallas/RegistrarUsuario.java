@@ -4,8 +4,16 @@ import Entidades.Usuario;
 import javax.swing.JOptionPane;
 import DAOs.UsuarioDAO;
 
+/**
+ * Pantalla utilizada para registrar un nuevo usuario al sistema.
+ * Se accede de la pantalla de inicio de sesion.
+ * @author montoya
+ */
 public class RegistrarUsuario extends javax.swing.JFrame {
     UsuarioDAO dao = new UsuarioDAO();
+    /**
+     * Constructor.
+     */
     public RegistrarUsuario() {
         initComponents();
     }
@@ -54,6 +62,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Crear Usuario");
 
@@ -79,7 +88,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnIngresar.setBackground(new java.awt.Color(0, 2, 2));
+        btnIngresar.setBackground(new java.awt.Color(0, 88, 71));
         btnIngresar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
@@ -148,7 +157,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -190,8 +199,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();  
-            }
-            
+            }            
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

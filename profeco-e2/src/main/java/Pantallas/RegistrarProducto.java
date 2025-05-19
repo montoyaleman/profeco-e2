@@ -4,9 +4,18 @@ import Entidades.Usuario;
 import Entidades.Producto;
 import javax.swing.JOptionPane;
 
+/**
+ * Pantalla utilizada para registrar un nuevo producto
+ * de un negocio al sistema.
+ * @author montoya
+ */
 public class RegistrarProducto extends javax.swing.JFrame {
     ProductoDAO dao = new ProductoDAO();
     Usuario usuario;
+    /**
+     * Constructor.
+     * @param usu Datos de usuario para obtener su ID de empresa.
+     */
     public RegistrarProducto(Usuario usu) {
         this.usuario = usu;
         initComponents();
@@ -55,6 +64,7 @@ public class RegistrarProducto extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Agregar Producto");
 
@@ -78,7 +88,7 @@ public class RegistrarProducto extends javax.swing.JFrame {
             }
         });
 
-        btnIngresar.setBackground(new java.awt.Color(0, 2, 2));
+        btnIngresar.setBackground(new java.awt.Color(0, 88, 71));
         btnIngresar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
@@ -148,7 +158,7 @@ public class RegistrarProducto extends javax.swing.JFrame {
                         .addComponent(txtEtiquetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addComponent(jCheckBoxOferta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

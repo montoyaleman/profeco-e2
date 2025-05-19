@@ -2,16 +2,22 @@ package Pantallas;
 
 import Entidades.Usuario;
 import javax.swing.JOptionPane;
-
+/**
+ * Pantalla principal del programa.
+ * @author montoya
+ */
 public class Principal extends javax.swing.JFrame {
     Usuario usuario;
+    /**
+     * Constructor, el cual determina si el usuario tiene
+     * acceso a la pantalla de usuarios.
+     * @param usu Datos de usuario.
+     */
     public Principal(Usuario usu) {
         this.usuario = usu;
+        initComponents();
         //si el usuario no esta marcado como admin, entonces no se 
         //puede ver el boton de ver reportes
-               
-        
-        initComponents();
         if (!usu.isIsAdmin()) btnVerReportes.setVisible(false);
     }
     @SuppressWarnings("unchecked")

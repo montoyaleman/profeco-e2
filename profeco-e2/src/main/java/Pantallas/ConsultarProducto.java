@@ -6,11 +6,20 @@ import Entidades.Producto;
 import Entidades.Reporte;
 import java.util.Date;
 import javax.swing.JOptionPane;
-
+/**
+ * Pantalla para visualizar los datos de un producto.
+ * @author montoya
+ */
 public class ConsultarProducto extends javax.swing.JFrame {
     ReporteDAO dao = new ReporteDAO();
     Producto pro;
     int idUsuario = 0;
+    /**
+     * Constructor, el cual inicializa los datos de la
+     * pantalla para mostrar los datos del producto en ella.
+     * @param pro Producto el cual se quiere consultar.
+     * @param IdUsuario ID del usuario en caso de hacer un reporte.
+     */
     public ConsultarProducto(Producto pro, int IdUsuario) {
         this.pro = pro;
         this.idUsuario = IdUsuario;
@@ -64,7 +73,7 @@ public class ConsultarProducto extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jLabelNombreProducto.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabelNombreProducto.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabelNombreProducto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelNombreProducto.setText("NOMBRE PRODUCTO");
 
@@ -169,6 +178,10 @@ public class ConsultarProducto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * 
+     * @param evt 
+     */
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
         String inconsistencia = JOptionPane.showInputDialog("Describa la inconsistencia a detalle: ");
@@ -190,7 +203,7 @@ public class ConsultarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
 

@@ -1,18 +1,25 @@
 package Pantallas;
 
 import DAOs.ReporteDAO;
-import Entidades.Producto;
 import Entidades.Reporte;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Pnatalla para visualizar los reportes actualmente en la
+ * base de datos, ademas de cambiar su estado.
+ * @author montoya
+ */
 public class ListaReportes extends javax.swing.JFrame {
     ReporteDAO dao = new ReporteDAO();
     List<Reporte> lista;
     DefaultTableModel modelo = new DefaultTableModel();
     
+    /**
+     * Constructor, el cual ademas de inicializar la pantalla,
+     * tambien actualiza los reportes actualmente en el sistema.
+     */
     public ListaReportes() {        
         initComponents();
         actualizarTabla();
@@ -69,7 +76,7 @@ public class ListaReportes extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Reportes");
 
@@ -91,7 +98,7 @@ public class ListaReportes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        btnActualizar.setBackground(new java.awt.Color(0, 2, 2));
+        btnActualizar.setBackground(new java.awt.Color(0, 88, 71));
         btnActualizar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
@@ -198,6 +205,10 @@ public class ListaReportes extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    /**
+     * Metodo utilizado para actualizar los reportes
+     * actualmente en la pantalla.
+     */
     private void actualizarTabla(){
         try {
             lista = dao.obtenerReportes();

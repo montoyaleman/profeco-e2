@@ -4,6 +4,7 @@ import Entidades.Empresa;
 import java.sql.*;
 import java.util.*;
 
+
 public class EmpresaDAO {
 
     // Método para obtener todas las empresas (Read)
