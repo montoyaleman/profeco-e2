@@ -60,33 +60,34 @@ public class ProductoDAO {
         return producto;
     }
     
-//    // Método para obtener un producto por ID (Read)
-//    public List<Producto> obtenerProductosPorNombre(String nombre) {
-//        List<Producto> lista = new ArrayList<>();
-//        String sql = "SELECT * FROM Producto WHERE nombre LIKE %?%";
-//
-//        try (Connection conn = Conexion.getConnection();
-//            PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//
-//            pstmt.setString(1, nombre);
-//            ResultSet rs = pstmt.executeQuery(sql);
-//            try (ResultSet rs = pstmt.executeQuery()) {
-//                if (rs.next()) {
-//                    producto = new Producto();
-//                    producto.setIdProducto(rs.getInt("idProducto"));
-//                    producto.setIdEmpresa(rs.getInt("idEmpresa"));
-//                    producto.setNombre(rs.getString("nombre"));
-//                    producto.setDescripcion(rs.getString("descripcion"));
-//                    producto.setPrecio(rs.getDouble("precio"));
-//                    producto.setOferta(rs.getBoolean("oferta"));
-//                    producto.setEtiquetas(rs.getString("etiqueta"));
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return producto;
-//    }
+    // Método para obtener un producto por el nombre del producto (Read)
+    public List<Producto> obtenerProductosPorNombre(String nombre) {
+        List<Producto> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Producto WHERE nombre LIKE ?";
+
+        try (Connection conn = Conexion.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "%"+nombre+"%");
+            ResultSet rs = pstmt.executeQuery(sql);
+            
+            if (rs.next()) {
+                Producto producto = new Producto();
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setIdEmpresa(rs.getInt("idEmpresa"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setOferta(rs.getBoolean("oferta"));
+                producto.setEtiquetas(rs.getString("etiqueta"));
+                lista.add(producto);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 
     // Método para crear un nuevo producto (Create)
     public void crearProducto(Producto producto) {

@@ -104,6 +104,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnCompararPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompararPreciosActionPerformed
         // TODO add your handling code here:
         new ComparacionPrecios(usuario).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnCompararPreciosActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
@@ -115,7 +116,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnVerReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReportesActionPerformed
         new ListaReportes().setVisible(true);
-        dispose();
     }//GEN-LAST:event_btnVerReportesActionPerformed
 
 

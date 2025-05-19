@@ -25,8 +25,6 @@ public class ListaReportes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -44,19 +42,6 @@ public class ListaReportes extends javax.swing.JFrame {
         jButton2.setText("jButton2");
 
         jButton3.setText("jButton3");
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,9 +75,6 @@ public class ListaReportes extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
@@ -194,26 +176,38 @@ public class ListaReportes extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtIDReporte.getText();
         String estado = jComboBox1.getSelectedItem().toString();
-        try {
+        if (id.isBlank()) JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos", "Error", JOptionPane.WARNING_MESSAGE);
+        else {
+            try {
             Reporte rep = dao.obtenerReportePorId(Integer.parseInt(id));
             rep.setEstado(estado);
             dao.actualizarReporte(rep);
         
             JOptionPane.showMessageDialog(null, "Reporte Actualizado con exito");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
-            e.printStackTrace();  
+            actualizarTabla();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();  
+            }
         }
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void actualizarTabla(){
         try {
             lista = dao.obtenerReportes();
             modelo.setRowCount(0);
+            modelo.setColumnCount(0);
+            modelo.addColumn("ID Reporte");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("ID Empresa");
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("Estado");
             Object[] data = new Object[5];
 
             for (Reporte rep : lista) {
@@ -246,9 +240,7 @@ public class ListaReportes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField txtIDReporte;
     // End of variables declaration//GEN-END:variables
 }

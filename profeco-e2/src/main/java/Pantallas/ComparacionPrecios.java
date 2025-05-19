@@ -3,19 +3,23 @@ package Pantallas;
 import DAOs.ProductoDAO;
 import Entidades.Producto;
 import Entidades.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ComparacionPrecios extends javax.swing.JFrame {
     
-    List<Producto> lista;
+    
     Usuario usuario;
     ProductoDAO dao = new ProductoDAO();
+    List<Producto> lista = dao.obtenerProductos();
     DefaultTableModel modelo = new DefaultTableModel();
     public ComparacionPrecios(Usuario usu) {
         this.usuario = usu;
+        lista = dao.obtenerProductos();
         initComponents();
+        actualizarTablar(lista);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -66,10 +70,7 @@ public class ComparacionPrecios extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID Producto", "Nombre", "ID Empresa", "Precio", "Oferta"
@@ -174,6 +175,8 @@ public class ComparacionPrecios extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
+        new Principal(usuario).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
@@ -196,33 +199,41 @@ public class ComparacionPrecios extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        String nombreProducto = txtNombreProducto.getText();
+        String nombreProducto = txtNombreProducto.getText().trim();
+        List listaActualizada = new ArrayList<Producto>();
         try {
-            lista = dao.obtenerProductos();
-            if (!nombreProducto.isBlank()){
-                for (Producto producto : lista) {
-                    if (!producto.getNombre().contains(nombreProducto)) lista.remove(producto);
-                }
-            }
-            modelo.setRowCount(0);
-            Object[] data = new Object[5];
-
-            for (Producto pro : lista) {
-                data[0] = pro.getIdEmpresa();
-                data[1] = pro.getNombre();
-                data[2] = pro.getIdEmpresa();
-                data[3] = pro.getPrecio();
-                data[4] = pro.isOferta();
-
-                modelo.addRow(data);
-            }
-            jTable1.setModel(modelo);
+            if (!nombreProducto.isBlank()) listaActualizada = dao.obtenerProductosPorNombre(nombreProducto);
+            else listaActualizada = lista;
+            
+            if (listaActualizada.isEmpty()) JOptionPane.showMessageDialog(null, "No se encontro un producto con ese nombre", "Error", JOptionPane.WARNING_MESSAGE);
+            else actualizarTablar(listaActualizada);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Hubo un error \n"+e.toString(), "Error", JOptionPane.WARNING_MESSAGE);
             e.printStackTrace();  
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    
+    public void actualizarTablar(List<Producto> listActualizada){
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        Object[] data = new Object[5];
+        modelo.addColumn("ID Producto");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("ID Empresa");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Oferta");
+
+        for (Producto pro : listActualizada) {
+            data[0] = pro.getIdProducto();
+            data[1] = pro.getNombre();
+            data[2] = pro.getIdEmpresa();
+            data[3] = pro.getPrecio();
+            data[4] = pro.isOferta();
+            modelo.addRow(data);
+        }
+        jTable1.setModel(modelo);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnConsultar;
